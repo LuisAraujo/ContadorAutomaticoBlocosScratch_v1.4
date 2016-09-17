@@ -11,6 +11,9 @@ window.qtdvar = 0;
 
 callfunctionrecussive = 0;
 currentProject = 0;
+lastprojectprinted = -1;
+
+var printing=null;
 
 //lista dos projetos obtivo via diretório
 projectList = null;
@@ -20,6 +23,7 @@ $(document).ready(function(){
 
         $("#table-body").html("");
         resetAllvariables();
+
         var jqxhr = $.post( "php/getListDir.php", {dir: $("#dir").val() },function() {
         })
         .done(function(data){
@@ -38,17 +42,8 @@ $(document).ready(function(){
 });
 
 function resetAllvariables(){
-    window.movimento = 0;
-    window.controle = 0;
-    window.aparencia = 0;
-    window.sensores = 0;
-    window.operadores = 0;
-    window.variaveis = 0;
-    window.som = 0;
-    window.caneta = 0;
-    window.qtdvar = 0;
-    callfunctionrecussive = 0;
     currentProject = 0;
+    printing= null;
 }
 
 
@@ -62,6 +57,7 @@ function resetForNextCount(){
     window.som = 0;
     window.caneta = 0;
     window.qtdvar = 0;
+    lastprojectprinted= -1;
     callfunctionrecussive = 0;
 
 }
@@ -117,39 +113,38 @@ function printInfo(){
 
     //quantidade de variáveis
     //$("#qtdvar").html(qtdvar);
-
-    printQtd();
+    console.log("STARTING")
+    printing = setInterval(function(){printQtd()}, 100);
 
 }
 
-function printQtd(){
+function printQtd(call){
+  console.log(currentProject+ "  "+callfunctionrecussive );
 
-    str = "<tr><th scope='row'>"+project.info.author+"</th>"+
-    "<td>"+movimento+"</td>"+
-    "<td>"+controle+"</td>"+
-    "<td>"+aparencia+"</td>"+
-    "<td>"+sensores+"</td>"+
-    "<td>"+operadores+"</td>"+
-    "<td>"+variaveis+"</td>"+
-    "<td>"+som+"</td>"+
-    "<td>"+caneta+"</td> </tr>";
+    if(callfunctionrecussive === 0){
 
-    $("#table-body").append(str);
+     if(lastprojectprinted >= currentProject)
+        return;
 
-     /*
-    $("#qtdMovimento").html(movimento);
-    $("#qtdControle").html(controle);
-    $("#qtdAparencia").html(aparencia);
-    $("#qtdSensores").html(sensores);
-    $("#qtdOperadores").html(operadores);
-    $("#qtdVariaveis").html(variaveis);
-    $("#qtdSom").html(som);
-    $("#qtdCaneta").html(caneta); */
+        clearInterval(printing);
 
-    if(callfunctionrecussive == 0)
+        str = "<tr><th scope='row'>"+project.info.author+"</th>"+
+        "<td>"+movimento+"</td>"+
+        "<td>"+controle+"</td>"+
+        "<td>"+aparencia+"</td>"+
+        "<td>"+sensores+"</td>"+
+        "<td>"+operadores+"</td>"+
+        "<td>"+variaveis+"</td>"+
+        "<td>"+som+"</td>"+
+        "<td>"+caneta+"</td> </tr>";
+
+        $("#table-body").append(str);
+
+        lastprojectprinted = currentProject;
+
         startCounting();
-    else
-      printQtd();
+
+    }
 }
 
 
@@ -158,8 +153,12 @@ function recussiveCall(item){
     //return;
     callfunctionrecussive++;
 
-    if(item == undefined)
-      return;
+    if(item == undefined){
+
+        callfunctionrecussive--;
+        return;
+    }
+
 
     if(item[0] == "doForever"){
         if(item[1] != null)
