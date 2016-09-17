@@ -19,7 +19,7 @@ $(document).ready(function(){
     $("#bt-start").click( function(){
 
         $("#table-body").html("");
-
+        resetAllvariables();
         var jqxhr = $.post( "php/getListDir.php", {dir: $("#dir").val() },function() {
         })
         .done(function(data){
@@ -46,15 +46,29 @@ function resetAllvariables(){
     window.variaveis = 0;
     window.som = 0;
     window.caneta = 0;
-
     window.qtdvar = 0;
+    callfunctionrecussive = 0;
+    currentProject = 0;
+}
 
+
+function resetForNextCount(){
+    window.movimento = 0;
+    window.controle = 0;
+    window.aparencia = 0;
+    window.sensores = 0;
+    window.operadores = 0;
+    window.variaveis = 0;
+    window.som = 0;
+    window.caneta = 0;
+    window.qtdvar = 0;
     callfunctionrecussive = 0;
 
 }
 
 function startCounting(){
-    resetAllvariables();
+    resetForNextCount();
+
     if(currentProject < projectList.length){
         var path = projectList[currentProject++];
 
