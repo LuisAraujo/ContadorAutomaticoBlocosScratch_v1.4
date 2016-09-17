@@ -16,7 +16,17 @@ alfa
 * Conta os blocos dos projetos
 * Apresenta os dados tabelados
 
+### Dependência
 
+* É necessário usar em um servidor
+
+### Como usar
+
+1. Copie a pasta que contém os arquivos .sb para a raiz da aplicação;
+2. Na aplicação digite o nome da pasta. *Ex.: pastaTesteArquivos*;
+3. Clique no botão Iniciar;
+4. Após a apresentação da tabela é possível copiar o conteúdo (selecionando e copiando) e
+colar em um editor de planilhas como o Libre Office Calc, Excel e outros.
 
 
 ![Tela Principal](https://github.com/LuisAraujo/ContadorAutomaticoBlocosScratch_v1.4/blob/master/tela.png)

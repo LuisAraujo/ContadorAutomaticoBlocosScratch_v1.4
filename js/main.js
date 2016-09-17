@@ -24,8 +24,8 @@ $(document).ready(function(){
         })
         .done(function(data){
              projectList = jQuery.parseJSON(data);
-
-             if(projectList.length > 1)
+             console.log(projectList);
+             if(projectList.length > 0)
                 startCounting();
               else
                  $("#modal-erro").modal();
@@ -155,7 +155,7 @@ function printQtd(){
 
 function recussiveCall(item){
     //console.log(item);
-   // return;
+    //return;
     callfunctionrecussive++;
 
     if(item == undefined)
@@ -316,14 +316,18 @@ function verificaSensores(item){
     }
 }
 function sumBlocks(block){
+    //movimento
     if ((block  == "bounceOffEdge") || (block  == "ypos:") ||
         (block == "changeYposBy:") || (block  == "xpos:") ||
         (block  == "changeXposBy:") || (block  == "glideSecs:toX:y:elapsed:from:")||
         (block  == "gotoX:y:") || (block == "pointTowards:") ||
         (block  == "heading:") || (block  == "turnLeft:") ||
-        (block  == "turnRight:") || (block  == "forward:")){
+        (block  == "turnRight:") || (block  == "forward:") || (block == "heading") ||
+        (block == "ypos") || (block=="xpos"))
+        {
 
              movimento++;
+    //controle
     } else if ((block  == "whenGreenFlag") || (block  == "whenKeyPressed") ||
         (block == "whenClicked") || (block  == "wait:elapsed:from:") ||
         (block  == "doForever") || (block  == "doRepeat")||
@@ -333,35 +337,45 @@ function sumBlocks(block){
         (block  == "doIfElse") || (block  == "doWaitUntil")){
 
             controle++;
+    //aparencia
     }else if ((block  == "goBackByLayers:") || (block == "comeToFront") ||
         (block == "hide") || (block == "show") || (block =="setSizeTo:") ||
         (block == "changeSizeBy:") || (block == "filterReset") || (block == "setGraphicEffect:to:") ||
         (block == "changeGraphicEffect:by:") || (block == "think:") || (block == "think:duration:elapsed:from:") ||
         (block == "say:") || (block == "say:duration:elapsed:from:") || (block =="nextCostume") ||
-        (block == "lookLike:")){
+        (block == "lookLike:") || (block == "scale") || (block == "costumeIndex")){
 
            aparencia++;
+    //sensores
     } else if ((block  == "mousePressed") || (block=="doAsk") || (block=="color:sees:") ||
               (block == "touchingColor:") || (block =="touching:") || (block=="keyPressed:") ||
-              (block == "distanceTo:") || (block=="timerReset") || (block == "getAttribute:of:")){
+              (block == "distanceTo:") || (block=="timerReset") || (block == "getAttribute:of:") ||
+              (block == "sensorPressed:") || (block=="sensor:") || (block == "isLoud") || (block=="soundLevel") ||
+              (block=="timer") || (block=="answer") ){
 
            sensores++;
+    //operadores
     } else if(( block == "computeFunction:of:") || ( block =="rounded") || (block=="\\") ||
         (block == "stringLength:") || (block =="letter:of:") || (block == "concatenate:with:") || (block == "&") ||
         (block == "not") || (block == "|") || (block == ">") || (block == "=") || (block == "<") || (block == "randomFrom:to:") || (block == "/") ||
         (block == "*") || (block == "-") || (block == "+")){
 
            operadores++;
+     //variaveis
     }else if(( block == "hideVariable:") || (block =="showVariable:") || (block == "changeVar:by:") ||
             (block == "setVar:to:") || (block == "readVariable") ){
 
            variaveis++;
+
+    //caneta
     }else if((block == "penSize:") || (block == "changePenSizeBy:") || (block == "setPenShadeTo:") ||
             (block == "changePenShadeBy:") || (block == "setPenHueTo:") || (block == "changePenHueBy:") ||
             (block == "stampCostume") || (block == "penColor:") || (block == "putPenUp") || (block == "putPenDown") ||
             (block == "clearPenTrails") ){
 
            caneta++;
+
+     //som
     }else if((block == "setTempoTo:") || (block == "changeTempoBy:") || (block == "setVolumeTo:") || (block == "changeVolumeBy:") ||
              (block == "midiInstrument:") || (block == "rest:elapsed:from:") || (block == "noteOn:duration:elapsed:from:") ||
              (block == "drum:duration:elapsed:from:") || (block == "volume") || (block == "tempo") || (block == "stopAllSounds") ||
