@@ -1,6 +1,6 @@
 <?php
 header ('Content-type: text/html; charset=UTF-8');
-$dir = "../pastaTesteArquivos";//$_POST["dir"];
+$dir = $_POST["dir"];
 $arrFiles = array();
 
 if (file_exists($dir)){

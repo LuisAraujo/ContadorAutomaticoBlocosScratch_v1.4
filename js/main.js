@@ -28,7 +28,7 @@ $(document).ready(function(){
         })
         .done(function(data){
              projectList = jQuery.parseJSON(data);
-             console.log(projectList);
+
              if(projectList.length > 0)
                 startCounting();
               else
@@ -77,7 +77,6 @@ function startCounting(){
 
 
 function printInfo(){
-    console.log('Project:', project);
 
     //nome = project.path.split("/");
     //$("#projectname").html("<b>Nome: </b> "+nome[nome.length-1]);
@@ -85,13 +84,12 @@ function printInfo(){
     //$("#projectpath").html("<b>Caminho:</b>"+project.path);
 
     objetos = project.stage.children;
+   console.log(objetos.length);
+    objetos[objetos.length] = project.stage;
 
     //quantidade de objetos
-    //$("#qtdobjectproject").html("<b>Quantidade de objetos:</b> "+objetos.length);
-    //$("#objectsproject").html("<b>Lista: </b> <br>");
 
-    //quantidade de variveis globais
-    qtdvar = project.stage.variables.length;
+    //$("#objectsproject").html("<b>Lista: </b> <br>");
 
     objetos.forEach(function(item, index){
          if(item.scripts != undefined){
@@ -103,7 +101,6 @@ function printInfo(){
              item.scripts.forEach(function(subitem, subindex){
                     subitem[2].forEach(function(subitem2, subindex2){
                         recussiveCall(subitem2);
-
                     });
              });
          }
@@ -113,13 +110,12 @@ function printInfo(){
 
     //quantidade de variáveis
     //$("#qtdvar").html(qtdvar);
-    console.log("STARTING")
+
     printing = setInterval(function(){printQtd()}, 100);
 
 }
 
 function printQtd(call){
-  console.log(currentProject+ "  "+callfunctionrecussive );
 
     if(callfunctionrecussive === 0){
 
@@ -136,7 +132,8 @@ function printQtd(call){
         "<td>"+operadores+"</td>"+
         "<td>"+variaveis+"</td>"+
         "<td>"+som+"</td>"+
-        "<td>"+caneta+"</td> </tr>";
+        "<td>"+caneta+"</td>"+
+        "<td>"+qtdvar+"</td> </tr>";
 
         $("#table-body").append(str);
 
@@ -150,7 +147,6 @@ function printQtd(call){
 
 function recussiveCall(item){
     //console.log(item);
-    //return;
     callfunctionrecussive++;
 
     if(item == undefined){
@@ -322,7 +318,7 @@ function sumBlocks(block){
         (block  == "gotoX:y:") || (block == "pointTowards:") ||
         (block  == "heading:") || (block  == "turnLeft:") ||
         (block  == "turnRight:") || (block  == "forward:") || (block == "heading") ||
-        (block == "ypos") || (block=="xpos"))
+        (block == "ypos") || (block == "gotoSpriteOrMouse:") || (block=="xpos"))
         {
 
              movimento++;

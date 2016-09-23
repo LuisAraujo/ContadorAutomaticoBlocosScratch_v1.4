@@ -34,7 +34,7 @@ colar em um editor de planilhas como o Libre Office Calc, Excel e outros.
 
 ###### Testes
 * Teste: Executado com 1.000 arquivos sb (~45MB)
-* Resultado: 980 projetos lidos em 5m e 17s 
+* Resultado: 1000 projetos lidos e tabelados em 5m e 17s 
 
 
 
