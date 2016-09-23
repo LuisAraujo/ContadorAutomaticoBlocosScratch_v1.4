@@ -1,6 +1,6 @@
 <?php
 header ('Content-type: text/html; charset=UTF-8');
-$dir = $_POST["dir"];
+$dir = "../".$_POST["dir"];
 $arrFiles = array();
 
 if (file_exists($dir)){
@@ -10,7 +10,7 @@ if (file_exists($dir)){
                 $nameFile = explode(".",$file);
                 $file = utf8_encode($file);
                 if((count($nameFile) > 1) && ($nameFile[1] == "sb" )){
-                    array_push($arrFiles,  str_replace("../", "",$dir)."/".$file);
+                    array_push($arrFiles,  str_replace("../", "", $dir)."/".$file);
                 }
             }
         }
